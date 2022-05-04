@@ -1,0 +1,46 @@
+.home-warp {
+  .carousel-warp {
+    height: 120px;
+  }
+  .list-item {
+    display: flex !important;
+    height: 120px;
+    padding: 30px;
+    border: 1px solid #91d5ff;
+    border-radius: 2px;
+    background: rgba(#e6f7ff, 0.3);
+    .list-left {
+      width: 80%;
+      .title-icon {
+        margin-right: 8px;
+        font-size: 14px;
+        color: #1890ff;
+      }
+      .title {
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        font-size: 18px;
+      }
+      .desc {
+        padding-left: 22px;
+      }
+    }
+    .list-right {
+      display: flex;
+      justify-content: flex-end;
+      align-items: flex-end;
+      width: 20%;
+    }
+  }
+  .task-card-list{
+      margin-top: 12px;
+      .card-item{
+          margin-bottom: 12px;
+          .card-item-time{
+            text-align: right;
+            color: rgb(206, 206, 206);
+          }
+      }
+  }
+}
