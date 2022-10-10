@@ -2,8 +2,8 @@ import "../../styles/login/index.scss";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import React from "react";
-import { Row, Col, Card, Form, Input, Button, Space } from "antd";
-
+import { Row, Col, Card, Form, Input, Button, Space,message } from "antd";
+import * as Api from '../../api/index'
 interface isState {
   title: String;
   phone: String;
@@ -11,22 +11,42 @@ interface isState {
   passWord: String;
   emailCode: String;
 }
+interface loginForm {
+  username: String;
+  password: String;
+  smsCode: String;
+}
 // Component<P,S,SS> 泛型P:参数props，泛型S:状态state，泛型SS:updater和虚拟dom更新相关
 const Login = (props: any) => {
   let navigate = useNavigate();
-  const [title, setTile] = useState("标题");
   const [smsCode, setSmsCode] = useState("");
 
-  useEffect(() => {
+  useEffect(() => {    
     getCode();
   },[]);
 
   const topage = () => {
     navigate("/home");
   };
-  const onFinish = () => {};
-  const onFinishFailed = () => {
-    topage()
+  // 提交表单
+  const onFinish = (values: loginForm) => {
+    if(values.smsCode !== smsCode){
+      message.warning("smsCode error!")
+      return getCode()
+    }
+    Api.login({phone:'17623010185',password:'123123'}).then(res=>{
+      if(res.data.length){
+        message.success('Login success!');
+        topage()
+      }else{
+        message.error('Login fail!');
+      }
+    }) 
+    
+  };
+  // 提交表单且数据验证失败后回调事件
+  const onFinishFailed = (values:any) => {
+    console.log(values,'valuse');
   };
   const getCode = () => {
     setSmsCode(parseInt(Math.random() * 100000 + "") + "");
